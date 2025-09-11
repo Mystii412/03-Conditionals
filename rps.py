@@ -4,7 +4,7 @@ print('Rock Paper Scissors')
 rounds = 3
 while rounds > 0:
     player_choice = input('Do you want to play Rock (r), Paper(p), or Scissors(s): ')
-
+    player_choice = player_choice.strip()
     if player_choice == 'r' or player_choice == 'R' or player_choice == 'p' or player_choice == 'P' or player_choice == 's' or player_choice == 'S':
         cpu_moves = ['r', 'p', 's']
         cpu_move = random.choice(cpu_moves)
