@@ -1,66 +1,88 @@
 import random
 
 print('Rock Paper Scissors')
-rounds = int(input('Input how many rounds you would like to play: '))
+
 round = 1
 hmn_wins = 0
 cpu_wins = 0
-while rounds > 0:
+
+
+def get_valid_input():
+    """Asks the player for an input (r,  p, s), then strips it and makes it lowercase."""
+    global player_choice
     player_choice = 'yes'
-    print(f"Round {round}")
-    round += 1
     while True:
         if player_choice != 'r' and player_choice != 'p' and player_choice != 's':
             player_choice = input('Do you want to play Rock (r), Paper(p), or Scissors(s): ').strip().lower()
         else:
+            global letter
+            letter = player_choice
             break
-    if player_choice == 'r' or player_choice == 'R' or player_choice == 'p' or player_choice == 'P' or player_choice == 's' or player_choice == 'S':
-        cpu_moves = ['r', 'p', 's']
-        cpu_move = random.choice(cpu_moves)
 
-        if player_choice == 'r' or player_choice == 'R':
-            pc = 'Rock'
-        elif player_choice == 'p' or player_choice == 'P':
-            pc = 'Paper'
-        else:
-            pc = 'Scissors'
+def cpu_move():
+    """Makes the variable 'cpu' a random value out of 'Rock', 'Paper', or 'Scissors'."""
+    global cpu
+    cpu_moves = ['Rock', 'Paper', 'Scissors']
+    cpu = random.choice(cpu_moves)
 
-        if cpu_move == 'r':
-            cc = 'Rock'
-        elif cpu_move == 'p':
-            cc = 'Paper'
-        else:
-            cc = 'Scissors'
+def convert_letter_to_word(letter):
+    global pc
+    if letter == 'r':
+        pc = 'Rock'
+    elif letter == 'p':
+        pc = 'Paper'
+    elif letter == 's':
+        pc = 'Scissors'
+    else :
+        raise Exception("convert_letter_to_word(letter) - Invalid value passed in. Value must be \“r\”, \“p\” or \“s\”") 
 
-        print(f"You picked {pc}.")
-        print(f"The computer picked {cc}.")
+    print(f"You picked {pc}.")
+    print(f"The computer picked {cpu}.")
 
-        if pc == cc:
-            print('It\'s a tie.')
-        elif pc == 'Rock' and cc == 'Paper':
-            print('You lose.')
-            cpu_wins += 1
-        elif pc =='Rock' and cc == 'Scissors':
-            print('You win.')
-            hmn_wins += 1
-        elif pc == 'Paper' and cc == 'Rock':
-            print('You win.')
-            hmn_wins += 1
-        elif pc == 'Paper' and cc == 'Scissors':
-            print('You lose.')
-            cpu_wins += 1
-        elif pc == 'Scissors' and cc == 'Paper':
-            print('You win.')
-            hmn_wins += 1
-        elif pc == 'Scissors' and cc == 'Rock':
-            print('You lose.')
-            cpu_wins += 1
+def print_results():
+    global hmn_wins
+    global cpu_wins
+    if pc == cpu:
+        print('It\'s a tie.')
+    elif pc == 'Rock' and cpu == 'Paper':
+        print('You lose.')
+        cpu_wins += 1
+    elif pc =='Rock' and cpu == 'Scissors':
+        print('You win.')
+        hmn_wins += 1
+    elif pc == 'Paper' and cpu == 'Rock':
+        print('You win.')
+        hmn_wins += 1
+    elif pc == 'Paper' and cpu == 'Scissors':
+        print('You lose.')
+        cpu_wins += 1
+    elif pc == 'Scissors' and cpu == 'Paper':
+        print('You win.')
+        hmn_wins += 1
+    elif pc == 'Scissors' and cpu == 'Rock':
+        print('You lose.')
+        cpu_wins += 1
 
-        rounds = rounds -1
 
-if hmn_wins > cpu_wins:
-    print(f"You won, {hmn_wins} : {cpu_wins}")
-elif hmn_wins == cpu_wins:
-    print(f"It's a tie. {hmn_wins} : {cpu_wins}")
-else:
-    print(f"You lost, {hmn_wins} : {cpu_wins}")
+def final_score():
+    if hmn_wins > cpu_wins:
+        print(f"You won, {hmn_wins} : {cpu_wins}")
+    elif hmn_wins == cpu_wins:
+        print(f"It's a tie. {hmn_wins} : {cpu_wins}")
+    else:
+        print(f"You lost, {hmn_wins} : {cpu_wins}")
+
+
+def main():
+    global rounds
+    rounds = int(input('Input how many rounds you would like to play: '))
+    while rounds > 0:
+        get_valid_input()
+        cpu_move()
+        convert_letter_to_word(letter)
+        print_results()
+        rounds -= 1
+    final_score()
+
+if __name__ == '__main__':
+    main()
