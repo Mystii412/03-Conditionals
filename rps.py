@@ -26,6 +26,7 @@ def cpu_move():
     cpu = random.choice(cpu_moves)
 
 def convert_letter_to_word(letter):
+    """Converts the letter input to a word"""
     global pc
     if letter == 'r':
         pc = 'Rock'
@@ -40,6 +41,7 @@ def convert_letter_to_word(letter):
     print(f"The computer picked {cpu}.")
 
 def print_results():
+    """Prints the results of the game"""
     global hmn_wins
     global cpu_wins
     if pc == cpu:
@@ -65,6 +67,7 @@ def print_results():
 
 
 def final_score():
+    """Prints the results of the entire series"""
     if hmn_wins > cpu_wins:
         print(f"You won, {hmn_wins} : {cpu_wins}")
     elif hmn_wins == cpu_wins:
