@@ -6,7 +6,6 @@ def higher_lower():
     tries = 0
     global answer
     answer = random.randint(0,101)
-    print(answer)
     while True:
         num = 0
         try:
